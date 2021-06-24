@@ -1,4 +1,4 @@
-<center>
+<div align="center">
 
 ![NinaReds](https://github-readme-stats.vercel.app/api?username=NinaReds&show_icons=true&theme=tokyonight&hide_border=true "Github Stats")
 
@@ -24,4 +24,4 @@
 ·
 [建议](https://github.com/NinaReds/QuanX/issues/new/choose)
 
-</center>
+</div>
