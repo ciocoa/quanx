@@ -2,7 +2,7 @@
 
 ![NinaReds](https://github-readme-stats.vercel.app/api?username=NinaReds&show_icons=true&theme=tokyonight&hide_border=true "Github Stats")
 
-![Quantumult](https://github.com/Koolson/Qure/raw/master/IconSet/Color/Quantumult_X.png "Quantumult")
+![Quantumult](https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Quantumult_X.png "Quantumult")
 
 # Quantumult X
 
