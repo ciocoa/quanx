@@ -1,8 +1,6 @@
 <div align="center">
 
-![NinaReds](https://github-readme-stats.vercel.app/api?username=RedsNina&show_icons=true&theme=tokyonight&hide_border=true "Github Stats")
-
-![Quantumult](https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Quantumult_X.png "Quantumult")
+![QuantumultX](https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Quantumult_X.png "QuantumultX")
 
 # Quantumult X
 
