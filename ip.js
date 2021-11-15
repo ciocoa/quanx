@@ -122,7 +122,10 @@ var obj = JSON.parse(body)
 var title = `${flags.get(obj['countryCode'])} ${obj['city']}`
 var subtitle = `${obj['isp']} ${obj['org']}`
 var ip = obj['query']
-var description = `国家：${flags.get(obj['countryCode'])}${obj['country']}\n地区：${obj['regionName']}\n时区：${
-  obj['timezone']
-}\nIP：${obj['query']}\n运营商：${obj['isp']}\n数据中心：${obj['org']}`
+var description = `国家: ${flags.get(obj['countryCode'])}${obj['country']}
+                   地区: ${obj['regionName']}
+                   时区: ${obj['timezone']}
+                   IP：  ${obj['query']}
+                   运营商: ${obj['isp']}
+                   数据中心：${obj['org']}`
 $done({ title, subtitle, ip, description })
