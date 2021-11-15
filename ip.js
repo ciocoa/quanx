@@ -120,7 +120,8 @@ const flags = new Map([
 const obj = JSON.parse($response.body)
 const title = `${flags.get(obj['countryCode'])} ${obj['city']}`
 const subtitle = obj['as']
+const ip = obj['query']
 const description = `国家: ${flags.get(obj['countryCode'])}${obj['country']}\n地区: ${obj['regionName']}\n时区: ${
   obj['timezone']
 }\nIP: ${obj['query']}\n运营商: ${obj['isp']}\n数据中心: ${obj['org']}`
-$done({ title, subtitle, description })
+$done({ title, subtitle, ip, description })
