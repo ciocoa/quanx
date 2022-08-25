@@ -6,7 +6,7 @@ on:
     paths: [ "**.cs" ]
   schedule:
     - cron: '0 18 * * *'
-  workflow_dispatch: ~
+  workflow_dispatch:
 
 env:
   Ray_BiliBiliCookies__1: ${{ secrets.COOKIE }}
