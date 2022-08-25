@@ -1,0 +1,41 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: [ "**.cs" ]
+  schedule:
+    - cron: '0 18 * * *'
+  workflow_dispatch: ~
+
+env:
+  Ray_BiliBiliCookies__1: ${{ secrets.COOKIE }}
+  Ray_Serilog__WriteTo__3__Args__botToken: ${{ secrets.TG_BOT_TOKEN }}
+  Ray_Serilog__WriteTo__3__Args__chatId: ${{ secrets.TG_CHAT_ID }}
+  Ray_Security__RandomSleepMaxMin: 5 # 启动附加随机延迟 $ min
+  Ray_Security__IntervalSecondsBetweenRequestApi: 5 # 请求附加随机延迟 $ s
+  Ray_DailyTaskConfig__NumberOfCoins: 0 # 投币数量 (0~5)
+  Ray_DailyTaskConfig__SupportUpIds: 401742377,1340190821 # 倾向up主
+  Ray_DailyTaskConfig__DayOfAutoCharge: 28 # 充电日期 (0: 关闭, -1: 月底)
+  Ray_DailyTaskConfig__AutoChargeUpId: -1 # 充电对象 (-1: 自己)
+  Ray_DailyTaskConfig__DayOfReceiveVipPrivilege: 28 # 大会员权益 (0: 关闭, -1: 随机)
+  Ray_DailyTaskConfig__DayOfExchangeSilver2Coin: 28 # 银瓜子换硬币 (0: 关闭, -1: 月底, -2: 每日)
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: git clone https://github.com/RayWangQvQ/BiliBiliToolPro.git app --depth=1
+    - name: Build
+      run: |
+        cd app/src/Ray.BiliBiliTool.Console
+        dotnet run --runTasks=Daily&VipBigPoint
