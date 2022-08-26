@@ -9,6 +9,7 @@ on:
   workflow_dispatch:
 
 env:
+  Ray_RunTasks: Daily,VipBigPoint
   Ray_BiliBiliCookies__1: ${{ secrets.COOKIE }}
   Ray_Serilog__WriteTo__3__Args__botToken: ${{ secrets.TG_BOT_TOKEN }}
   Ray_Serilog__WriteTo__3__Args__chatId: ${{ secrets.TG_CHAT_ID }}
@@ -36,6 +37,4 @@ jobs:
     - name: Restore dependencies
       run: git clone https://github.com/RayWangQvQ/BiliBiliToolPro.git app --depth=1
     - name: Build
-      run: |
-        cd app/src/Ray.BiliBiliTool.Console
-        dotnet run --runTasks=Daily&VipBigPoint
+      run: cd app/src/Ray.BiliBiliTool.Console && dotnet run
