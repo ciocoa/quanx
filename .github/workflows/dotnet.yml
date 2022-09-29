@@ -1,15 +1,15 @@
 name: .NET
 
 on:
+  schedule:
+    - cron: '0 18 * * *'
   push:
     branches: [ "main" ]
     paths: [ "**.cs" ]
-  schedule:
-    - cron: '0 18 * * *'
   workflow_dispatch:
 
 env:
-  Ray_RunTasks: Daily
+  Ray_RunTasks: Daily&VipBigPoint
   Ray_BiliBiliCookies__1: ${{ secrets.COOKIE }}
   Ray_Serilog__WriteTo__3__Args__botToken: ${{ secrets.TG_BOT_TOKEN }}
   Ray_Serilog__WriteTo__3__Args__chatId: ${{ secrets.TG_CHAT_ID }}
@@ -24,6 +24,9 @@ env:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        dotnet-version: ["6.0.x"]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -31,7 +34,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: ${{ matrix.dotnet-version }}
     - name: Install dependencies
       run: git clone https://github.com/RayWangQvQ/BiliBiliToolPro.git app --depth=1
     - name: Build and Run
