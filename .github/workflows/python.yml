@@ -24,9 +24,9 @@ jobs:
       - name: Initialize project
         run: |
           git clone https://github.com/Womsxd/AutoMihoyoBBS.git app --depth=1
-          wget ${{ secrets.BOT1 }} -O app/config/bot1.yml
-          wget ${{ secrets.BOT2 }} -O app/config/bot2.yml
-          wget ${{ secrets.BOT3 }} -O app/config/bot3.yml
+          wget ${{ secrets.BOT1 }} -O app/config/bot1.yaml
+          wget ${{ secrets.BOT2 }} -O app/config/bot2.yaml
+          wget ${{ secrets.BOT3 }} -O app/config/bot3.yaml
           wget ${{ secrets.PUSH }} -O app/config/push.ini
       - name: Install dependencies
         run: pip install -r app/requirements.txt
