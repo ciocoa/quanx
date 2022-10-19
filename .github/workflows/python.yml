@@ -2,7 +2,7 @@ name: Python
 
 on:
   schedule:
-    - cron: "0 20 * * *"
+    - cron: "30 23 * * *"
   push:
     branches: ["main"]
     paths: ["*.py"]
