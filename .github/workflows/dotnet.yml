@@ -13,9 +13,11 @@ env:
   Ray_BiliBiliCookies__1: ${{ secrets.COOKIE }}
   Ray_Serilog__WriteTo__3__Args__botToken: ${{ secrets.TG_BOT_TOKEN }}
   Ray_Serilog__WriteTo__3__Args__chatId: ${{ secrets.TG_CHAT_ID }}
-  Ray_Security__RandomSleepMaxMin: 0 # 启动附加随机延迟 $ min
-  Ray_Security__IntervalSecondsBetweenRequestApi: 5 # 请求附加随机延迟 $ s
-  Ray_DailyTaskConfig__NumberOfCoins: 0 # 投币数量 (0~5)
+  Ray_Security__RandomSleepMaxMin: 5 # 启动附加随机延迟 $ min
+  Ray_Security__IntervalSecondsBetweenRequestApi: 10 # 请求附加随机延迟 $ s
+  Ray_DailyTaskConfig__IsWatchVideo: false # 观看视频
+  Ray_DailyTaskConfig__IsShareVideo: false # 分享视频
+  Ray_DailyTaskConfig__SaveCoinsWhenLv6: true # 开启白嫖模式
   Ray_DailyTaskConfig__SupportUpIds: 401742377,1340190821 # 倾向up主
   Ray_DailyTaskConfig__AutoChargeUpId: -1 # 充电对象 (-1: 自己)
   Ray_DailyTaskConfig__DayOfAutoCharge: 28 # 充电日期 (0: 关闭, -1: 月底)
