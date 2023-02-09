@@ -23,7 +23,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Initialize project
         run: |
-          git clone https://github.com/Womsxd/AutoMihoyoBBS.git app --depth=1
+          git clone https://github.com/Womsxd/MihoyoBBSTools.git app --depth=1
           wget ${{ secrets.BOT1 }} -O app/config/bot1.yaml
           wget ${{ secrets.BOT2 }} -O app/config/bot2.yaml
           wget ${{ secrets.BOT3 }} -O app/config/bot3.yaml
