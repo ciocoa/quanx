@@ -6,7 +6,7 @@
 
 > 纯属练手，自用 QuantumultX 预配置文件
 
-[![Workflow](https://img.shields.io/github/actions/workflow/status/ciocoa/quanx/dotnet.yml?branch=main?logo=github "Workflow")](https://github.com/ciocoa/quanx/actions?query=workflow%3A.NET)
+[![Workflow](https://img.shields.io/github/actions/workflow/status/ciocoa/quanx/dotnet.yml?branch=main?logo=github "actions")](https://github.com/ciocoa/quanx/actions?query=workflow%3A.NET)
 [![LastCommit](https://img.shields.io/github/last-commit/ciocoa/quanx?logo=github "LastCommit")](https://github.com/ciocoa/quanx/commits)
 [![Codecov](https://codecov.io/gh/ciocoa/quanx/branch/main/graph/badge.svg "Codecov")](https://codecov.io/gh/ciocoa/quanx)
 [![SteamGroup](https://img.shields.io/badge/Steam-group-yellowgreen.svg?logo=steam "SteamGroup")](https://steamcommunity.com/groups/archiasf)
