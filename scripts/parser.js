@@ -4,6 +4,8 @@
 
 $notify($resource.content)
 
+console.log($resource.content);
+
 POLICY(DOMAIN($resource.content))
 
 $done()
