@@ -1,6 +1,8 @@
 /**
- * DOMAIN-SET TO FILTER-RULE
+ * DOMAIN-SET TO FILTER-RULE *
  */
+
+$notify($resource.content)
 
 if (typeof ($resource) !== "undefined") {
     $notify($resource.content)
