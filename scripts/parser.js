@@ -4,11 +4,7 @@
 
 $notify($resource.content)
 
-if (typeof ($resource) !== "undefined") {
-    $notify($resource.content)
-    POLICY(DOMAIN($resource.content))
-    $done()
-}
+POLICY(DOMAIN($resource.content))
 
 /**
  * CONVERTED DOMAIN
