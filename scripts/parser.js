@@ -6,6 +6,8 @@ $notify($resource.content)
 
 POLICY(DOMAIN($resource.content))
 
+$done()
+
 /**
  * CONVERTED DOMAIN
  * 
