@@ -3,6 +3,7 @@
  */
 
 if (typeof ($resource) !== "undefined") {
+    $notify($resource.content)
     POLICY(DOMAIN($resource.content))
     $done()
 }
