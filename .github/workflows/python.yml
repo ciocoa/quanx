@@ -30,5 +30,3 @@ jobs:
         run: pip install -r app/requirements.txt
       - name: Build and Run
         run: python app/main_multi.py autorun
-      - name: Cat
-        run: cat app/config/hutao.yaml
