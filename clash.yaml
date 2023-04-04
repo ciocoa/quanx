@@ -85,7 +85,6 @@ rules:
   # Bing Ai
   - DOMAIN-SUFFIX,bing.com,🚀 节点选择
   - DOMAIN-SUFFIX,msn.com,🚀 节点选择
-  - DOMAIN-SUFFIX,microsoft.com,🚀 节点选择
   # RULE-SET规则
   - RULE-SET,applications,🎯 全球直连
   - RULE-SET,private,🎯 全球直连
