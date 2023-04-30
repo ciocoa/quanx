@@ -92,7 +92,7 @@ proxy-groups:
     type: select
     proxies:
       - 🎯全球直连
-      - 📌节点选择
+      - 🔰节点选择
 
 rules:
   - DOMAIN,clash.razord.top,🎯全球直连
