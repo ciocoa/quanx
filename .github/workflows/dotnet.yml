@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-  Ray_RunTasks: Daily&LiveFansMedal
+  Ray_RunTasks: Daily&VipBigPoint&LiveFansMedal
   Ray_BiliBiliCookies__1: ${{ secrets.COOKIE }}
   Ray_Serilog__WriteTo__3__Args__botToken: ${{ secrets.TG_BOT_TOKEN }}
   Ray_Serilog__WriteTo__3__Args__chatId: ${{ secrets.TG_CHAT_ID }}
