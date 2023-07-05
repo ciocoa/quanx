@@ -13,7 +13,7 @@ env:
   Ray_BiliBiliCookies__1: ${{ secrets.COOKIE }}
   Ray_Serilog__WriteTo__3__Args__botToken: ${{ secrets.TG_BOT_TOKEN }}
   Ray_Serilog__WriteTo__3__Args__chatId: ${{ secrets.TG_CHAT_ID }}
-  Ray_Security__RandomSleepMaxMin: 3 # 启动附加随机延迟 $ min
+  Ray_Security__RandomSleepMaxMin: 1 # 启动附加随机延迟 $ min
   Ray_Security__IntervalSecondsBetweenRequestApi: 10 # 请求附加随机延迟 $ s
   Ray_DailyTaskConfig__IsWatchVideo: false # 观看视频
   Ray_DailyTaskConfig__IsShareVideo: false # 分享视频
