@@ -1,113 +1,114 @@
-port: 7890
-socks-port: 7891
-# redir-port: 7892
-# tproxy-port: 7893
-# mixed-port: 7890
-# allow-lan: false
-# bind-address: "*"
+mixed-port: 7890
+
 mode: rule
+
 log-level: warning
-# ipv6: false
+
 external-controller: 127.0.0.1:9090
-# external-ui: folder
-# interface-name: en0
-# routing-mark: 6666
+
+external-ui: ./providers
+
+secret: 123456
+
 # hosts:
 # '*.clash.dev': 127.0.0.1
-# profile:
-#   store-selected: false
-#   store-fake-ip: false
 
-tun:
-  enable: false
-  stack: system # or gvisor
-  dns-hijack:
-    - any:53
-  auto-redir: true
-  auto-route: true
-  auto-detect-interface: true
+profile:
+  store-selected: false
+  store-fake-ip: true
 
 dns:
   enable: true
+  prefer-h3: true
   listen: 0.0.0.0:53
-  ipv6: false
   default-nameserver:
-    - 1.1.1.1
+    - 114.114.114.114
     - 8.8.8.8
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   nameserver:
-    - https://doh.pub/dns-query # DNS over HTTPS
-    - tls://dns.rubyfish.cn:853 # DNS over TLS
-    - dhcp://en0 # DNS from DHCP
-  fallback:
-    - https://one.one.one.one/dns-query
-    - https://dns.google/dns-query
-  fallback-filter:
-    geoip: true
-    geoip-code: CN
-    ipcidr:
-      - 240.0.0.0/4
+    - 114.114.114.114
+    - 8.8.8.8
+    - tls://223.5.5.5:853
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query#h3=true
+    - https://mozilla.cloudflare-dns.com/dns-query#DNS&h3=true
+    # - dhcp://en0
+    # - quic://dns.adguard.com:784
 
 proxy-providers:
-  proxies:
+  All:
     type: http
     interval: 3600
     url: "https://proxies.haisto.cn/clash/proxies?filter=r"
     path: ./providers/proxies.yaml
     health-check:
       enable: true
-      interval: 600
       url: "http://www.gstatic.com/generate_204"
+      interval: 600
 
 proxy-groups:
-  - name: 🔰节点选择
+  - name: 节点选择
     type: select
     proxies:
-      - 🧿自动选择
-      - 📌手动切换
-      - 🎯全球直连
-  - name: 🧿自动选择
+      - 自动切换
+      - 手动切换
+      - 全球直连
+  - name: 自动切换
     type: url-test
-    url: "http://www.gstatic.com/generate_204"
+    use:
+      - All
+    url: 'http://www.gstatic.com/generate_204'
     interval: 300
-    # tolerance: 50
-    # lazy: true
-    use:
-      - proxies
-  - name: 📌手动切换
+  - name: 手动切换
     type: select
-    interval: 43200
     use:
-      - proxies
-  - name: 🎯全球直连
+      - All
+  - name: 哔哩哔哩
+    type: select
+    proxies:
+      - 全球直连
+      - 节点选择
+  - name: 三方服务
+    type: select
+    proxies:
+      - 全球直连
+      - 节点选择
+  - name: 黑白名单
+    type: select
+    proxies:
+      - 节点选择
+      - 全球直连
+  - name: 全球直连
     type: select
     proxies:
       - DIRECT
-  - name: 🍃净化拦截
+  - name: 净化拦截
     type: select
     proxies:
       - REJECT
-  - name: 🔗黑白名单
-    type: select
-    proxies:
-      - 🎯全球直连
-      - 🔰节点选择
 
 rules:
-  - DOMAIN,clash.razord.top,🎯全球直连
-  - DOMAIN,yacd.haishan.me,🎯全球直连
-  - DOMAIN-SUFFIX,bing.com,🔰节点选择
-  - DOMAIN-SUFFIX,msn.com,🔰节点选择
-  - RULE-SET,applications,🎯全球直连
-  - RULE-SET,private,🎯全球直连
-  - RULE-SET,proxy,🔰节点选择
-  - RULE-SET,tld-not-cn,🔰节点选择
-  - RULE-SET,gfw,🔰节点选择
-  - RULE-SET,greatfire,🔰节点选择
-  - RULE-SET,telegramcidr,🔰节点选择
-  - RULE-SET,reject,🍃净化拦截
-  - MATCH,🔗黑白名单
+  - DOMAIN,clash.razord.top,全球直连
+  - DOMAIN,yacd.haishan.me,全球直连
+  - DOMAIN-SUFFIX,bilibili.com,哔哩哔哩
+  - DOMAIN-SUFFIX,bing.com,节点选择
+  - DOMAIN-SUFFIX,msn.com,节点选择
+  - RULE-SET,private,全球直连
+  - RULE-SET,direct,全球直连
+  - RULE-SET,cncidr,全球直连
+  - RULE-SET,lancidr,全球直连
+  - RULE-SET,applications,全球直连
+  - RULE-SET,proxy,节点选择
+  - RULE-SET,tld-not-cn,节点选择
+  - RULE-SET,gfw,节点选择
+  - RULE-SET,greatfire,节点选择
+  - RULE-SET,telegramcidr,节点选择
+  - RULE-SET,apple,三方服务
+  - RULE-SET,icloud,三方服务
+  - RULE-SET,google,三方服务
+  - RULE-SET,reject,净化拦截
+  - MATCH,黑白名单
 
 rule-providers:
   reject:
