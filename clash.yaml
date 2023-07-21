@@ -1,197 +1,358 @@
-mixed-port: 7890
-
-mode: rule
-
-log-level: warning
-
-external-controller: 127.0.0.1:9090
-
-external-ui: ./providers
-
-secret: 123456
-
-# hosts:
-# '*.clash.dev': 127.0.0.1
-
-profile:
-  store-selected: false
-  store-fake-ip: true
-
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: Rule
+log-level: info
+external-controller: :9090
 dns:
-  enable: true
-  prefer-h3: true
-  listen: 0.0.0.0:53
-  default-nameserver:
-    - 114.114.114.114
-    - 8.8.8.8
-  enhanced-mode: fake-ip
-  fake-ip-range: 198.18.0.1/16
+  enabled: true
   nameserver:
-    - 114.114.114.114
-    - 8.8.8.8
-    - tls://223.5.5.5:853
     - https://doh.pub/dns-query
-    - https://dns.alidns.com/dns-query#h3=true
-    - https://mozilla.cloudflare-dns.com/dns-query#DNS&h3=true
-    # - dhcp://en0
-    # - quic://dns.adguard.com:784
-
+    - https://223.5.5.5/dns-query
+    - https://doh.360.cn/dns-query
+    - https://dns.alidns.com/dns-query
+  fallback:
+    - 8.8.8.8
+    - 8.8.4.4
+    - tls://1.0.0.1:853
+    - tls://dns.google:853
 proxy-providers:
-  All:
+  all:
     type: http
-    interval: 3600
-    url: "https://proxies.haisto.cn/clash/proxies?filter=r"
+    url: https://proxies.haisto.cn/clash/proxies?filter=r
     path: ./providers/proxies.yaml
+    interval: 3600
     health-check:
       enable: true
-      url: "http://www.gstatic.com/generate_204"
+      url: http://www.gstatic.com/generate_204
       interval: 600
-
+  hk:
+    type: http
+    path: ./providers/proxies.yaml
+    interval: 3600
+    filter: "HK|港"
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 600
+  tw:
+    type: http
+    path: ./providers/proxies.yaml
+    interval: 3600
+    filter: "TW|台"
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 600
+  jp:
+    type: http
+    path: ./providers/proxies.yaml
+    interval: 3600
+    filter: "JP|日"
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 600
+  us:
+    type: http
+    path: ./providers/proxies.yaml
+    interval: 3600
+    filter: "US|美"
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 600
 proxy-groups:
-  - name: 节点选择
+  - name: 🚀 节点选择
     type: select
     proxies:
-      - 自动切换
-      - 手动切换
-      - 全球直连
-  - name: 自动切换
+      - ♻️ 自动选择
+      - 🔯 故障转移
+      - 🔮 负载均衡
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇯🇵 日本节点
+      - 🇺🇲 美国节点
+      - 🚀 手动切换
+      - 🎯 全球直连
+  - name: ♻️ 自动选择
     type: url-test
-    use:
-      - All
-    url: 'http://www.gstatic.com/generate_204'
+    url: http://www.gstatic.com/generate_204
     interval: 300
-  - name: 手动切换
+    tolerance: 50
+    use:
+      - all
+  - name: 🔯 故障转移
+    type: fallback
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    use:
+      - all
+  - name: 🔮 负载均衡
+    type: load-balance
+    strategy: consistent-hashing
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    use:
+      - all
+  - name: 📲 电报消息
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🚀 手动切换
+  - name: 💬 微软必应
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - 🇯🇵 日本节点
+      - 🇺🇲 美国节点
+      - ♻️ 自动选择
+      - 🚀 手动切换
+  - name: 📹 油管视频
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🚀 手动切换
+  - name: 🎥 奈飞视频
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - ♻️ 自动选择
+      - 🚀 手动切换
+  - name: 📺 巴哈姆特
+    type: select
+    proxies:
+      - 🇨🇳 台湾节点
+      - 🚀 节点选择
+      - 🚀 手动切换
+  - name: 📺 哔哩哔哩
+    type: select
+    proxies:
+      - 🎯 全球直连
+      - 🇨🇳 台湾节点
+      - 🇭🇰 香港节点
+  - name: 🎶 网易音乐
+    type: select
+    proxies:
+      - 🎯 全球直连
+      - 🚀 节点选择
+      - ♻️ 自动选择
+  - name: 🌍 国外媒体
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🚀 手动切换
+  - name: 🌏 国内媒体
+    type: select
+    proxies:
+      - 🎯 全球直连
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇯🇵 日本节点
+      - 🚀 手动切换
+  - name: 📢 谷歌FCM
+    type: select
+    proxies:
+      - 🎯 全球直连
+      - 🚀 节点选择
+      - ♻️ 自动选择
+  - name: Ⓜ️ 微软服务
+    type: select
+    proxies:
+      - 🎯 全球直连
+      - 🚀 节点选择
+      - ♻️ 自动选择
+  - name: 🍎 苹果服务
+    type: select
+    proxies:
+      - 🎯 全球直连
+      - 🚀 节点选择
+      - ♻️ 自动选择
+  - name: 🎮 游戏平台
+    type: select
+    proxies:
+      - 🎯 全球直连
+      - 🚀 节点选择
+      - 🇺🇲 美国节点
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇯🇵 日本节点
+      - ♻️ 自动选择
+  - name: 🐟 黑白名单
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🎯 全球直连
+  - name: 🚀 手动切换
     type: select
     use:
-      - All
-  - name: 哔哩哔哩
-    type: select
-    proxies:
-      - 全球直连
-      - 节点选择
-  - name: 三方服务
-    type: select
-    proxies:
-      - 全球直连
-      - 节点选择
-  - name: 黑白名单
-    type: select
-    proxies:
-      - 节点选择
-      - 全球直连
-  - name: 全球直连
+      - all
+  - name: 🎯 全球直连
     type: select
     proxies:
       - DIRECT
-  - name: 净化拦截
+  - name: 🛡️ 隐私防护
     type: select
     proxies:
       - REJECT
-
+  - name: 🇭🇰 香港节点
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    use:
+      - hk
+  - name: 🇨🇳 台湾节点
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    use:
+      - tw
+  - name: 🇯🇵 日本节点
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    use:
+      - jp
+  - name: 🇺🇲 美国节点
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 150
+    use:
+      - us
 rules:
-  - DOMAIN,clash.razord.top,全球直连
-  - DOMAIN,yacd.haishan.me,全球直连
-  - DOMAIN-SUFFIX,bilibili.com,哔哩哔哩
-  - DOMAIN-SUFFIX,bing.com,节点选择
-  - DOMAIN-SUFFIX,msn.com,节点选择
-  - RULE-SET,private,全球直连
-  - RULE-SET,direct,全球直连
-  - RULE-SET,cncidr,全球直连
-  - RULE-SET,lancidr,全球直连
-  - RULE-SET,applications,全球直连
-  - RULE-SET,proxy,节点选择
-  - RULE-SET,tld-not-cn,节点选择
-  - RULE-SET,gfw,节点选择
-  - RULE-SET,greatfire,节点选择
-  - RULE-SET,telegramcidr,节点选择
-  - RULE-SET,apple,三方服务
-  - RULE-SET,icloud,三方服务
-  - RULE-SET,google,三方服务
-  - RULE-SET,reject,净化拦截
-  - MATCH,黑白名单
+  - DOMAIN,clash.razord.top,🎯 全球直连
+  - DOMAIN,yacd.haishan.me,🎯 全球直连
+  - RULE-SET,lan,🎯 全球直连
+  - RULE-SET,direct,🎯 全球直连
+  - RULE-SET,advertising,🛡️ 隐私防护
+  - RULE-SET,proxy,🚀 节点选择
+  - RULE-SET,apple,🍎 苹果服务
+  - RULE-SET,google,📢 谷歌FCM
+  - RULE-SET,bing,💬 微软必应
+  - RULE-SET,openai,💬 微软必应
+  - RULE-SET,bilibili,📺 哔哩哔哩
+  - RULE-SET,tiktok,🎥 奈飞视频
+  - RULE-SET,netflix,🎥 奈飞视频
+  - RULE-SET,youtube,📹 油管视频
+  - RULE-SET,telegram,📲 电报消息
+  - RULE-SET,steam,🎮 游戏平台
+  - RULE-SET,steamcn,🎯 全球直连
+  - RULE-SET,china,🎯 全球直连
+  - RULE-SET,chinaips,🎯 全球直连
+  - MATCH,🐟 黑白名单
 
 rule-providers:
-  reject:
+  lan:
     type: http
-    behavior: domain
-    url: "https://raw.gitmirror.com/Loyalsoldier/clash-rules/release/reject.txt"
-    path: ./providers/reject.yaml
-    interval: 86400
-  proxy:
-    type: http
-    behavior: domain
-    url: "https://raw.gitmirror.com/Loyalsoldier/clash-rules/release/proxy.txt"
-    path: ./providers/proxy.yaml
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml
+    path: ./providers/lan.yaml
     interval: 86400
   direct:
     type: http
-    behavior: domain
-    url: "https://raw.gitmirror.com/Loyalsoldier/clash-rules/release/direct.txt"
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.yaml
     path: ./providers/direct.yaml
     interval: 86400
-  private:
-    type: http
-    behavior: domain
-    url: "https://raw.gitmirror.com/Loyalsoldier/clash-rules/release/private.txt"
-    path: ./providers/private.yaml
-    interval: 86400
-  gfw:
-    type: http
-    behavior: domain
-    url: "https://raw.gitmirror.com/Loyalsoldier/clash-rules/release/gfw.txt"
-    path: ./providers/gfw.yaml
-    interval: 86400
-  greatfire:
-    type: http
-    behavior: domain
-    url: "https://raw.gitmirror.com/Loyalsoldier/clash-rules/release/greatfire.txt"
-    path: ./providers/greatfire.yaml
-    interval: 86400
-  telegramcidr:
-    type: http
-    behavior: ipcidr
-    url: "https://raw.gitmirror.com/Loyalsoldier/clash-rules/release/telegramcidr.txt"
-    path: ./providers/telegramcidr.yaml
-    interval: 86400
-  applications:
+  advertising:
     type: http
     behavior: classical
-    url: "https://raw.gitmirror.com/Loyalsoldier/clash-rules/release/applications.txt"
-    path: ./providers/applications.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Advertising/Advertising.yaml
+    path: ./providers/advertising.yaml
     interval: 86400
-  cncidr:
+  proxy:
     type: http
-    behavior: ipcidr
-    url: "https://raw.gitmirror.com/Loyalsoldier/clash-rules/release/cncidr.txt"
-    path: ./providers/cncidr.yaml
-    interval: 86400
-  lancidr:
-    type: http
-    behavior: ipcidr
-    url: "https://raw.gitmirror.com/Loyalsoldier/clash-rules/release/lancidr.txt"
-    path: ./providers/lancidr.yaml
-    interval: 86400
-  tld-not-cn:
-    type: http
-    behavior: domain
-    url: "https://raw.gitmirror.com/Loyalsoldier/clash-rules/release/tld-not-cn.txt"
-    path: ./providers/tld-not-cn.yaml
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Proxy/Proxy.yaml
+    path: ./providers/proxy.yaml
     interval: 86400
   apple:
     type: http
-    behavior: domain
-    url: "https://raw.gitmirror.com/Loyalsoldier/clash-rules/release/apple.txt"
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.yaml
     path: ./providers/apple.yaml
-    interval: 86400
-  icloud:
-    type: http
-    behavior: domain
-    url: "https://raw.gitmirror.com/Loyalsoldier/clash-rules/release/icloud.txt"
-    path: ./providers/icloud.yaml
     interval: 86400
   google:
     type: http
-    behavior: domain
-    url: "https://raw.gitmirror.com/Loyalsoldier/clash-rules/release/google.txt"
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GoogleFCM/GoogleFCM.yaml
     path: ./providers/google.yaml
+    interval: 86400
+  bing:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Bing/Bing.yaml
+    path: ./providers/bing.yaml
+    interval: 86400
+  openai:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml
+    path: ./providers/openai.yaml
+    interval: 86400
+  bilibili:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BiliBili/BiliBili.yaml
+    path: ./providers/bilibili.yaml
+    interval: 86400
+  tiktok:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.yaml
+    path: ./providers/tiktok.yaml
+    interval: 86400
+  netflix:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.yaml
+    path: ./providers/netflix.yaml
+    interval: 86400
+  youtube:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml
+    path: ./providers/youtube.yaml
+    interval: 86400
+  telegram:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml
+    path: ./providers/telegram.yaml
+    interval: 86400
+  steam:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml
+    path: ./providers/steam.yaml
+    interval: 86400
+  steamcn:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SteamCN/SteamCN.yaml
+    path: ./providers/steamcn.yaml
+    interval: 86400
+  china:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China.yaml
+    path: ./providers/china.yaml
+    interval: 86400
+  chinaips:
+    type: http
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaIPs/ChinaIPs_IP.yaml
+    path: ./providers/chinaips.yaml
     interval: 86400
