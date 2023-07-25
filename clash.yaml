@@ -28,6 +28,7 @@ proxy-providers:
       interval: 600
   hk:
     type: http
+    url: https://proxies.haisto.cn/clash/proxies?filter=r
     path: ./providers/proxies.yaml
     interval: 3600
     filter: "HK|港"
@@ -37,6 +38,7 @@ proxy-providers:
       interval: 600
   tw:
     type: http
+    url: https://proxies.haisto.cn/clash/proxies?filter=r
     path: ./providers/proxies.yaml
     interval: 3600
     filter: "TW|台"
@@ -46,6 +48,7 @@ proxy-providers:
       interval: 600
   jp:
     type: http
+    url: https://proxies.haisto.cn/clash/proxies?filter=r
     path: ./providers/proxies.yaml
     interval: 3600
     filter: "JP|日"
@@ -55,6 +58,7 @@ proxy-providers:
       interval: 600
   us:
     type: http
+    url: https://proxies.haisto.cn/clash/proxies?filter=r
     path: ./providers/proxies.yaml
     interval: 3600
     filter: "US|美"
@@ -188,9 +192,9 @@ proxy-groups:
   - name: 🐟 黑白名单
     type: select
     proxies:
+      - 🎯 全球直连
       - 🚀 节点选择
       - ♻️ 自动选择
-      - 🎯 全球直连
   - name: 🚀 手动切换
     type: select
     use:
@@ -236,6 +240,7 @@ rules:
   - DOMAIN,yacd.haishan.me,🎯 全球直连
   - RULE-SET,lan,🎯 全球直连
   - RULE-SET,direct,🎯 全球直连
+  - RULE-SET,steamcn,🎯 全球直连
   - RULE-SET,advertising,🛡️ 隐私防护
   - RULE-SET,proxy,🚀 节点选择
   - RULE-SET,apple,🍎 苹果服务
@@ -248,111 +253,109 @@ rules:
   - RULE-SET,youtube,📹 油管视频
   - RULE-SET,telegram,📲 电报消息
   - RULE-SET,steam,🎮 游戏平台
-  - RULE-SET,steamcn,🎯 全球直连
   - RULE-SET,china,🎯 全球直连
   - RULE-SET,chinaips,🎯 全球直连
   - MATCH,🐟 黑白名单
-
 rule-providers:
   lan:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Lan/Lan.yaml
     path: ./providers/lan.yaml
     interval: 86400
   direct:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Direct/Direct.yaml
     path: ./providers/direct.yaml
     interval: 86400
   advertising:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Advertising/Advertising.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Advertising/Advertising.yaml
     path: ./providers/advertising.yaml
     interval: 86400
   proxy:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Proxy/Proxy.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Proxy/Proxy.yaml
     path: ./providers/proxy.yaml
     interval: 86400
   apple:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Apple/Apple.yaml
     path: ./providers/apple.yaml
     interval: 86400
   google:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GoogleFCM/GoogleFCM.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GoogleFCM/GoogleFCM.yaml
     path: ./providers/google.yaml
     interval: 86400
   bing:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Bing/Bing.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Bing/Bing.yaml
     path: ./providers/bing.yaml
     interval: 86400
   openai:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI.yaml
     path: ./providers/openai.yaml
     interval: 86400
   bilibili:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BiliBili/BiliBili.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/BiliBili/BiliBili.yaml
     path: ./providers/bilibili.yaml
     interval: 86400
   tiktok:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TikTok/TikTok.yaml
     path: ./providers/tiktok.yaml
     interval: 86400
   netflix:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Netflix/Netflix.yaml
     path: ./providers/netflix.yaml
     interval: 86400
   youtube:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/YouTube/YouTube.yaml
     path: ./providers/youtube.yaml
     interval: 86400
   telegram:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Telegram/Telegram.yaml
     path: ./providers/telegram.yaml
     interval: 86400
   steam:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Steam/Steam.yaml
     path: ./providers/steam.yaml
     interval: 86400
   steamcn:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SteamCN/SteamCN.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/SteamCN/SteamCN.yaml
     path: ./providers/steamcn.yaml
     interval: 86400
   china:
     type: http
     behavior: classical
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/China/China.yaml
     path: ./providers/china.yaml
     interval: 86400
   chinaips:
     type: http
     behavior: ipcidr
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaIPs/ChinaIPs_IP.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ChinaIPs/ChinaIPs_IP.yaml
     path: ./providers/chinaips.yaml
     interval: 86400
