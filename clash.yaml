@@ -17,51 +17,51 @@ dns:
     - tls://1.0.0.1:853
     - tls://dns.google:853
 proxy-providers:
-  all:
+  ALL:
     type: http
-    url: https://proxies.haisto.cn/clash/proxies?filter=r
+    url: https://9527521.xyz/pubconfig/6QPSqvKcoa4kJnjL
     path: ./providers/proxies.yaml
     interval: 3600
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
       interval: 600
-  hk:
+  HK:
     type: http
-    url: https://proxies.haisto.cn/clash/proxies?filter=r
+    url: https://9527521.xyz/pubconfig/6QPSqvKcoa4kJnjL
     path: ./providers/proxies.yaml
     interval: 3600
-    filter: "HK|港"
+    filter: 'HK|港'
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
       interval: 600
-  tw:
+  TW:
     type: http
-    url: https://proxies.haisto.cn/clash/proxies?filter=r
+    url: https://9527521.xyz/pubconfig/6QPSqvKcoa4kJnjL
     path: ./providers/proxies.yaml
     interval: 3600
-    filter: "TW|台"
+    filter: 'TW|台'
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
       interval: 600
-  jp:
+  JP:
     type: http
-    url: https://proxies.haisto.cn/clash/proxies?filter=r
+    url: https://9527521.xyz/pubconfig/6QPSqvKcoa4kJnjL
     path: ./providers/proxies.yaml
     interval: 3600
-    filter: "JP|日"
+    filter: 'JP|日'
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
       interval: 600
-  us:
+  US:
     type: http
-    url: https://proxies.haisto.cn/clash/proxies?filter=r
+    url: https://9527521.xyz/pubconfig/6QPSqvKcoa4kJnjL
     path: ./providers/proxies.yaml
     interval: 3600
-    filter: "US|美"
+    filter: 'US|美'
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
@@ -85,14 +85,14 @@ proxy-groups:
     interval: 300
     tolerance: 50
     use:
-      - all
+      - ALL
   - name: 🔯 故障转移
     type: fallback
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 50
     use:
-      - all
+      - ALL
   - name: 🔮 负载均衡
     type: load-balance
     strategy: consistent-hashing
@@ -100,19 +100,37 @@ proxy-groups:
     interval: 300
     tolerance: 50
     use:
-      - all
-  - name: 📲 电报消息
+      - ALL
+  - name: 📱 谷歌服务
     type: select
     proxies:
       - 🚀 节点选择
-      - ♻️ 自动选择
-      - 🚀 手动切换
-  - name: 💬 微软必应
+      - 🎯 全球直连
+  - name: 📢 谷歌FCM
+    type: select
+    proxies:
+      - 🎯 全球直连
+      - 🚀 节点选择
+  - name: 🍎 苹果服务
+    type: select
+    proxies:
+      - 🎯 全球直连
+      - 🚀 节点选择
+  - name: Ⓜ️ 微软服务
+    type: select
+    proxies:
+      - 🎯 全球直连
+      - 🚀 节点选择
+  - name: 💬 OpenAI
     type: select
     proxies:
       - 🚀 节点选择
       - 🇯🇵 日本节点
       - 🇺🇲 美国节点
+  - name: 📲 电报消息
+    type: select
+    proxies:
+      - 🚀 节点选择
       - ♻️ 自动选择
       - 🚀 手动切换
   - name: 📹 油管视频
@@ -129,56 +147,24 @@ proxy-groups:
       - 🇨🇳 台湾节点
       - ♻️ 自动选择
       - 🚀 手动切换
-  - name: 📺 巴哈姆特
+  - name: 🎶 Spotify
     type: select
     proxies:
-      - 🇨🇳 台湾节点
       - 🚀 节点选择
-      - 🚀 手动切换
+      - ♻️ 自动选择
+  - name: 📺 TikTok
+    type: select
+    proxies:
+      - 🇯🇵 日本节点
+      - 🇨🇳 台湾节点
+      - 🇭🇰 香港节点
+      - 🚀 节点选择
   - name: 📺 哔哩哔哩
     type: select
     proxies:
       - 🎯 全球直连
       - 🇨🇳 台湾节点
       - 🇭🇰 香港节点
-  - name: 🎶 网易音乐
-    type: select
-    proxies:
-      - 🎯 全球直连
-      - 🚀 节点选择
-      - ♻️ 自动选择
-  - name: 🌍 国外媒体
-    type: select
-    proxies:
-      - 🚀 节点选择
-      - ♻️ 自动选择
-      - 🚀 手动切换
-  - name: 🌏 国内媒体
-    type: select
-    proxies:
-      - 🎯 全球直连
-      - 🇭🇰 香港节点
-      - 🇨🇳 台湾节点
-      - 🇯🇵 日本节点
-      - 🚀 手动切换
-  - name: 📢 谷歌FCM
-    type: select
-    proxies:
-      - 🎯 全球直连
-      - 🚀 节点选择
-      - ♻️ 自动选择
-  - name: Ⓜ️ 微软服务
-    type: select
-    proxies:
-      - 🎯 全球直连
-      - 🚀 节点选择
-      - ♻️ 自动选择
-  - name: 🍎 苹果服务
-    type: select
-    proxies:
-      - 🎯 全球直连
-      - 🚀 节点选择
-      - ♻️ 自动选择
   - name: 🎮 游戏平台
     type: select
     proxies:
@@ -198,7 +184,7 @@ proxy-groups:
   - name: 🚀 手动切换
     type: select
     use:
-      - all
+      - ALL
   - name: 🎯 全球直连
     type: select
     proxies:
@@ -213,46 +199,54 @@ proxy-groups:
     interval: 300
     tolerance: 50
     use:
-      - hk
+      - HK
   - name: 🇨🇳 台湾节点
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 50
     use:
-      - tw
+      - TW
   - name: 🇯🇵 日本节点
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 50
     use:
-      - jp
+      - JP
   - name: 🇺🇲 美国节点
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 150
     use:
-      - us
+      - US
 rules:
   - DOMAIN,clash.razord.top,🎯 全球直连
   - DOMAIN,yacd.haishan.me,🎯 全球直连
   - RULE-SET,lan,🎯 全球直连
   - RULE-SET,direct,🎯 全球直连
+  - RULE-SET,download,🎯 全球直连
   - RULE-SET,steamcn,🎯 全球直连
   - RULE-SET,advertising,🛡️ 隐私防护
-  - RULE-SET,proxy,🚀 节点选择
+  - RULE-SET,google,📱 谷歌服务
+  - RULE-SET,googlefcm,📢 谷歌FCM
   - RULE-SET,apple,🍎 苹果服务
-  - RULE-SET,google,📢 谷歌FCM
-  - RULE-SET,bing,💬 微软必应
-  - RULE-SET,openai,💬 微软必应
-  - RULE-SET,bilibili,📺 哔哩哔哩
-  - RULE-SET,tiktok,🎥 奈飞视频
-  - RULE-SET,netflix,🎥 奈飞视频
-  - RULE-SET,youtube,📹 油管视频
+  - RULE-SET,microsoft,Ⓜ️ 微软服务
+  - RULE-SET,bing,💬 OpenAI
+  - RULE-SET,openai,💬 OpenAI
   - RULE-SET,telegram,📲 电报消息
+  - RULE-SET,youtube,📹 油管视频
+  - RULE-SET,netflix,🎥 奈飞视频
+  - RULE-SET,spotify,🎶 Spotify
+  - RULE-SET,tiktok,📺 TikTok
+  - RULE-SET,bilibili,📺 哔哩哔哩
   - RULE-SET,steam,🎮 游戏平台
+  - RULE-SET,xbox,🎮 游戏平台
+  - RULE-SET,epic,🎮 游戏平台
+  - RULE-SET,nintendo,🎮 游戏平台
+  - RULE-SET,sony,🎮 游戏平台
+  - RULE-SET,proxy,🚀 节点选择
   - RULE-SET,china,🎯 全球直连
   - RULE-SET,chinaips,🎯 全球直连
   - MATCH,🐟 黑白名单
@@ -272,14 +266,26 @@ rule-providers:
   advertising:
     type: http
     behavior: classical
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Advertising/Advertising.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Advertising/Advertising_Classical.yaml
     path: ./providers/advertising.yaml
     interval: 86400
   proxy:
     type: http
     behavior: classical
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Proxy/Proxy.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Proxy/Proxy_Classical.yaml
     path: ./providers/proxy.yaml
+    interval: 86400
+  google:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Google/Google.yaml
+    path: ./providers/google.yaml
+    interval: 86400
+  googlefcm:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GoogleFCM/GoogleFCM.yaml
+    path: ./providers/googlefcm.yaml
     interval: 86400
   apple:
     type: http
@@ -287,11 +293,11 @@ rule-providers:
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Apple/Apple.yaml
     path: ./providers/apple.yaml
     interval: 86400
-  google:
+  microsoft:
     type: http
     behavior: classical
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GoogleFCM/GoogleFCM.yaml
-    path: ./providers/google.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft.yaml
+    path: ./providers/microsoft.yaml
     interval: 86400
   bing:
     type: http
@@ -305,23 +311,11 @@ rule-providers:
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI.yaml
     path: ./providers/openai.yaml
     interval: 86400
-  bilibili:
+  telegram:
     type: http
     behavior: classical
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/BiliBili/BiliBili.yaml
-    path: ./providers/bilibili.yaml
-    interval: 86400
-  tiktok:
-    type: http
-    behavior: classical
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TikTok/TikTok.yaml
-    path: ./providers/tiktok.yaml
-    interval: 86400
-  netflix:
-    type: http
-    behavior: classical
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Netflix/Netflix.yaml
-    path: ./providers/netflix.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Telegram/Telegram.yaml
+    path: ./providers/telegram.yaml
     interval: 86400
   youtube:
     type: http
@@ -329,11 +323,29 @@ rule-providers:
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/YouTube/YouTube.yaml
     path: ./providers/youtube.yaml
     interval: 86400
-  telegram:
+  netflix:
     type: http
     behavior: classical
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Telegram/Telegram.yaml
-    path: ./providers/telegram.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Netflix/Netflix_Classical.yaml
+    path: ./providers/netflix.yaml
+    interval: 86400
+  spotify:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Spotify/Spotify.yaml
+    path: ./providers/spotify.yaml
+    interval: 86400
+  tiktok:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TikTok/TikTok.yaml
+    path: ./providers/tiktok.yaml
+    interval: 86400
+  bilibili:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/BiliBili/BiliBili.yaml
+    path: ./providers/bilibili.yaml
     interval: 86400
   steam:
     type: http
@@ -341,21 +353,51 @@ rule-providers:
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Steam/Steam.yaml
     path: ./providers/steam.yaml
     interval: 86400
+  xbox:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Xbox/Xbox.yaml
+    path: ./providers/xbox.yaml
+    interval: 86400
+  epic:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Epic/Epic.yaml
+    path: ./providers/epic.yaml
+    interval: 86400
+  nintendo:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Nintendo/Nintendo.yaml
+    path: ./providers/nintendo.yaml
+    interval: 86400
+  sony:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Sony/Sony.yaml
+    path: ./providers/sony.yaml
+    interval: 86400
   steamcn:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/SteamCN/SteamCN.yaml
     path: ./providers/steamcn.yaml
     interval: 86400
+  download:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Download/Download.yaml
+    path: ./providers/download.yaml
+    interval: 86400
   china:
     type: http
     behavior: classical
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/China/China.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/China/China_Classical.yaml
     path: ./providers/china.yaml
     interval: 86400
   chinaips:
     type: http
     behavior: ipcidr
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ChinaIPs/ChinaIPs_IP.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ChinaIPs/ChinaIPs_Classical.yaml
     path: ./providers/chinaips.yaml
     interval: 86400
