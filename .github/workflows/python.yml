@@ -10,23 +10,27 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.10"]
-    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.REPO }}
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Initialize project
+      - name: Loading config
         run: |
-          git clone https://github.com/Womsxd/MihoyoBBSTools.git app --depth=1
-          wget ${{ secrets.HUTAO }} -O app/config/hutao.yaml
-          wget ${{ secrets.PUSH }} -O app/config/push.ini
+          wget ${{ secrets.HUTAO }} -O config/hutao.yaml
+          wget ${{ secrets.GANYU }} -O config/ganyu.yaml
+          wget ${{ secrets.PUSHER }} -O config/push.ini
       - name: Install dependencies
-        run: pip install -r app/requirements.txt
+        run: pip install -r requirements.txt
       - name: Build and Run
-        run: python app/main_multi.py autorun
+        run: python main_multi.py autorun
+      - run: cat config/hutao.yaml && cat config/ganyu.yaml
