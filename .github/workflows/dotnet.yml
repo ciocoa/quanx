@@ -26,18 +26,19 @@ env:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
+    environment: build
     strategy:
       matrix:
         dotnet-version: ["6.0.x"]
-    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ vars.BILI_REPO }}
     - name: Setup .NET
-      uses: actions/setup-dotnet@v2
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
-    - name: Install dependencies
-      run: git clone https://github.com/RayWangQvQ/BiliBiliToolPro.git app --depth=1
     - name: Build and Run
-      run: cd app/src/Ray.BiliBiliTool.Console && dotnet run
+      run: cd src/Ray.BiliBiliTool.Console && dotnet run
