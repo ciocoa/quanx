@@ -1,4 +1,4 @@
-name: .NET
+name: Bilibili
 
 on:
   schedule:
@@ -27,7 +27,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: build
+    environment: bilibili
     strategy:
       matrix:
         dotnet-version: ["6.0.x"]
@@ -35,10 +35,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        repository: ${{ vars.BILI_REPO }}
+        repository: ${{ vars.REPO }}
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
+        cache: true
     - name: Build and Run
       run: cd src/Ray.BiliBiliTool.Console && dotnet run

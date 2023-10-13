@@ -1,4 +1,4 @@
-name: Python
+name: Mihoyo
 
 on:
   schedule:
@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: build
+    environment: mihoyo
     strategy:
       matrix:
         python-version: ["3.11"]
@@ -19,11 +19,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          repository: ${{ vars.MYS_REPO }}
+          repository: ${{ vars.REPO }}
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+          cache: "pip"
       - name: Loading config
         run: |
           wget ${{ secrets.HUTAO }} -O config/hutao.yaml
