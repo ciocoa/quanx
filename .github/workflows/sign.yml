@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: build
+    environment: sign
     strategy:
       matrix:
         python-version: ["3.12"]
@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          repository: ${{ vars.SIGN_REPO }}
+          repository: ${{ vars.REPO }}
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -27,4 +27,4 @@ jobs:
       - name: Install dependencies
         run: pip install uvicorn fastapi httpx loguru diskcache apscheduler SQLAlchemy python-dateutil
       - name: Build and Run
-        run: python sign.py --pt_pin ${{ vars.PT_PIN }} --pt_key ${{ vars.PT_KEY }}
+        run: python sign.py --pt_pin ${{ secrets.PT_PIN }} --pt_key ${{ secrets.PT_KEY }}
