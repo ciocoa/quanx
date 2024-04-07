@@ -1,0 +1,44 @@
+name: Build
+
+on:
+  schedule:
+    - cron: '0 18 * * *'
+  push:
+    branches: [ "main" ]
+    paths: [ "**.cs" ]
+  workflow_dispatch:
+
+env:
+  Ray_RunTasks: Daily&LiveFansMedal
+  Ray_BiliBiliCookies__1: ${{ secrets.COOKIE }}
+  Ray_Serilog__WriteTo__3__Args__botToken: ${{ secrets.TG_BOT_TOKEN }}
+  Ray_Serilog__WriteTo__3__Args__chatId: ${{ secrets.TG_CHAT_ID }}
+  Ray_Security__RandomSleepMaxMin: 1 # 启动附加随机延迟 $ min
+  Ray_Security__IntervalSecondsBetweenRequestApi: 10 # 请求附加随机延迟 $ s
+  Ray_DailyTaskConfig__IsWatchVideo: false # 观看视频
+  Ray_DailyTaskConfig__IsShareVideo: false # 分享视频
+  Ray_DailyTaskConfig__SaveCoinsWhenLv6: true # 开启白嫖模式
+  Ray_DailyTaskConfig__SupportUpIds: 401742377,1340190821 # 倾向up主
+  Ray_DailyTaskConfig__AutoChargeUpId: -1 # 充电对象 (-1: 自己)
+  Ray_DailyTaskConfig__DayOfAutoCharge: 1 # 充电日期 (0: 关闭, -1: 月底)
+  Ray_DailyTaskConfig__DayOfReceiveVipPrivilege: 1 # 大会员权益 (0: 关闭, -1: 随机)
+  Ray_DailyTaskConfig__DayOfExchangeSilver2Coin: 1 # 银瓜子换硬币 (0: 关闭, -1: 月底, -2: 每日)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: bilibili
+    strategy:
+      matrix:
+        dotnet: ["6.0.x"]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ vars.REPO }}
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ matrix.dotnet }}
+    - name: Build and Run
+      run: cd src/Ray.BiliBiliTool.Console && dotnet run
