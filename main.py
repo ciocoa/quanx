@@ -104,6 +104,7 @@ def news():
         data: list[str] = json['data']
         message = f'## {news_name}\n\n'
         for msg in data:
+            log.info(msg)
             message += f'{msg}\n'
         set_notify(message)
 
